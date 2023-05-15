@@ -15,7 +15,7 @@ class RecipeCard extends HTMLElement {
     let shadowEl = this.attachShadow({mode:'open'});
     let elementArticle = document.createElement('article');
     let elementStyle = document.createElement('style');
-    elementStyle.textContent =
+    elementStyle.textContent = 
       `* {
         font-family: sans-serif;
         margin: 0;
@@ -91,9 +91,8 @@ class RecipeCard extends HTMLElement {
         color: #70757A;
         font-size: 12px;
       }`;
-
     shadowEl.append(elementArticle);
-    shadowEl.append(this.style);
+    shadowEl.append(elementStyle);
   }
 
   /**
@@ -126,20 +125,21 @@ class RecipeCard extends HTMLElement {
     //           cardTemplate.html and the data passed in (You should only have one <article>,
     //           do not nest an <article> inside another <article>). You should use Template
     //           literals (tempalte strings) and element.innerHTML for this.
-    document.querySelector('article').innerHTML = 
-    `<img src=${imgSrc} alt=${imgAlt}>
+    console.log(this.shadowRoot.querySelector('article'));
+    this.shadowRoot.querySelector('article').innerHTML = 
+    `<img src=${data.imgSrc} alt=${data.imgAlt}>
     <p class="title">
-    <a href=${titleLnk}>${titleTxt}</a>
+    <a href=${data.titleLnk}>${data.titleTxt}</a>
     </p>
-    <p class="organization">${organization}</p>
+    <p class="organization">${data.organization}</p>
     <div class="rating">
-    <span>${rating}</span>
-    <img src="/assets/images/icons/5-star.svg" alt="5 stars">
-    <span>(${numRatings})</span>
+    <span>${data.rating}</span>
+    <img src="/assets/images/icons/${data.rating}-star.svg" alt="${data.rating} stars">
+    <span>(${data.numRatings})</span>
     </div>
-    <time>${lengthTime}</time>
+    <time>${data.lengthTime}</time>
     <p class="ingredients">
-    ${ingredients}
+    ${data.ingredients}
     </p>`;
   }
 }

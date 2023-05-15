@@ -25,8 +25,9 @@ function getRecipesFromStorage() {
   //           header. It is possible in only a single line, but should
   //           be no more than a few lines.
   let recipeArr = [];
-  for (let i = 0; i < localStorage.length; i++) {
-    recipeArr.push(localStorage[i]);
+  let parsedArr = JSON.parse(localStorage.getItem('recipes'));
+  for (let i = 0; i < parsedArr.length; i++) {
+    recipeArr.push(parsedArr[i]);
   }
   return recipeArr;
 }
@@ -47,16 +48,7 @@ function addRecipesToDocument(recipes) {
   //            Append each element to <main>
   for (let i = 0; i < recipes.length; i++) {
     let recipeCard = document.createElement('recipe-card');
-    recipeCard.innerHTML =
-    `imgSrc = 'recipes[i].imgSrc' 
-    imgAlt = 'recipes[i].imgAlt'
-    titleLnk = 'recipes[i].titleLnk'
-    titleTxt = 'recipes[i].titleTxt'
-    organization = 'recipes[i].organization'
-    rating = 'recipes[i].rating'
-    numRatings = 'recipes[i].numRatings'
-    lengthTime = 'recipes[i].lengthTime'
-    ingredients = 'recipes[i].ingredients'`;
+    recipeCard.data = recipes[i];
     main.append(recipeCard);
   }
 }
